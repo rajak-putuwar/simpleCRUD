@@ -10,6 +10,7 @@
                     Notice</button></a><br>
 
             <a href="/admin/datas"><button type="submit" class="btn btn-primary my-2 w-75">Datas </button></a><br>
+            <a href="/admin/trash"><button type="submit" class="btn btn-primary my-2 w-75">Trashed Datas </button></a><br>
         </div>
     </div>
 </x-app-layout>

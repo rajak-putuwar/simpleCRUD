@@ -19,11 +19,9 @@
                         <td>{{ $data->title }}</td>
                         <td>{{ $data->description }}</td>
                         <td>
-                            <a href="/admin/{{ $data->id }}/edit">
-                                <button type="submit" class="btn btn-success">edit</button>
                             </a>
-                            <a href="/admin/{{ $data->id }}/delete">
-                                <button type="submit" class="btn btn-danger">Trash</button>
+                            <a href="/admin/{{ $data->id }}/permanent-delete">
+                                <button type="submit" class="btn btn-danger">delete</button>
                             </a>
                         </td>
 

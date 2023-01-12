@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController,NoticeController,ParticipateController};
-use App\Models;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +19,15 @@ Route::get('/',function(){
     return redirect()->route('login');
 });
 
+Route::get('/dashboard', [NoticeController::class,'index'])->name('dashboard')->middleware('auth');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
+Route::get('/admin_check',function(){
+    echo "you are not eligible to access this page</br>";
+    echo '<a href="/dashboard">return to dashboard</a>';
+});
 
-])->group(function () {
-
-    Route::get('/dashboard', [NoticeController::class,'index'])->name('dashboard');
+Route::group(['middleware'=>['admin']],function()
+{
 
     Route::get('/admin/{id}/edit', [NoticeController::class,'edit']);
 
@@ -42,7 +42,8 @@ Route::middleware([
     });
 
     Route::get('/admin/datas',[NoticeController::class,'admin'])->name('admin/datas');
-
+    Route::get('/admin/trash',[NoticeController::class,'trash']);
+    Route::get('/admin/{id}/permanent-delete',[NoticeController::class,'permanentDelete']);
 
 });
 

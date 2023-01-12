@@ -30,6 +30,12 @@ class NoticeController extends Controller
         return view('admin.datas',compact('notices'));
     }
 
+    public function trash()
+    {
+        $notices = Notice::onlyTrashed()->get();
+        return view('admin.trash_data',compact('notices'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -88,6 +94,14 @@ class NoticeController extends Controller
     {
         $notice = Notice::find($id);
         $notice->delete($notice);
+
+        return redirect()->back();
+    }
+
+    public function permanentDelete($id)
+    {
+        $notice = Notice::withTrashed()->find($id);
+        $notice->forceDelete($notice);
 
         return redirect()->back();
     }
